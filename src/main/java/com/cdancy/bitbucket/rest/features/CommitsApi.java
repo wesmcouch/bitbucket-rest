@@ -83,4 +83,15 @@ public interface CommitsApi {
                     @Nullable @QueryParam("until") String until,
                     @Nullable @QueryParam("limit") Integer limit,
                     @Nullable @QueryParam("start") Integer start);
+
+    @Named("commits:pull-requests")
+    @Documentation({"https://developer.atlassian.com/static/rest/bitbucket-server/latest/bitbucket-rest.html#idm140236729804608"})
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{project}/repos/{repo}/commits/{commitId}/pull-requests")
+    @Fallback(BitbucketFallbacks.CommitPageOnError.class)
+    @GET
+    PullRequestPage getPullRequests( @PathParam("project") String project,
+                                     @PathParam("repo") String repo,
+                                     @PathParam("commitId") String commitId,
+                                     @Nullable @QueryParam("path") String path);
 }
